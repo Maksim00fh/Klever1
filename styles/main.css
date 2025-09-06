@@ -136,7 +136,7 @@ img {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный фон (более темный) */
+    background-color: rgba(0, 0, 0, 0); /* Полностью прозрачный фон */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     transition: var(--transition);
     backdrop-filter: blur(10px);
@@ -427,6 +427,7 @@ img {
     scrollbar-width: none;
     -ms-overflow-style: none;
     cursor: grab;
+    scroll-snap-type: x mandatory;
 }
 
 .menu-scroll::-webkit-scrollbar {
@@ -436,6 +437,7 @@ img {
 .menu-scroll.dragging {
     scroll-behavior: auto;
     cursor: grabbing;
+    scroll-snap-type: none;
 }
 
 .menu-items {
@@ -454,6 +456,8 @@ img {
     opacity: 1;
     transform: translateY(0);
     animation: menuItemAppear 0.6s ease forwards;
+    scroll-snap-align: start;
+    flex-shrink: 0;
 }
 
 .menu-item.hide {
@@ -1026,6 +1030,11 @@ img {
     
     .item-info h3 {
         font-size: 1.3rem;
+    }
+    
+    /* Мобильный хедер - полностью прозрачный */
+    .header {
+        background-color: rgba(0, 0, 0, 0) !important;
     }
 }
 
