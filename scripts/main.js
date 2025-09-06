@@ -1,3 +1,4 @@
+// Файл: main.js
 document.addEventListener('DOMContentLoaded', function() {
     // Мобильное меню
     const hamburger = document.querySelector('.hamburger');
@@ -8,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
             
+            // Изменение фона хедера при открытии меню на мобильном
             const header = document.querySelector('.header');
             if (navMenu.classList.contains('active')) {
                 header.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
@@ -16,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
+        // Закрытие меню при клике на ссылку
         document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
@@ -35,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const headerHeight = document.querySelector('.header').offsetHeight;
                 const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
                 
+                // Определяем скорость прокрутки
                 const scrollSpeed = this.classList.contains('scroll-slow') ? 2000 : 1000;
                 
                 smoothScrollTo(targetPosition, scrollSpeed);
@@ -42,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Функция плавной прокрутки с регулируемой скоростью
     function smoothScrollTo(targetPosition, duration) {
         const startPosition = window.pageYOffset;
         const distance = targetPosition - startPosition;
@@ -65,44 +70,48 @@ document.addEventListener('DOMContentLoaded', function() {
         requestAnimationFrame(animation);
     }
     
-    // Фильтрация меню - оптимизированная версия
+    // Фильтрация меню
     function initMenuFilter() {
         const categoryButtons = document.querySelectorAll('.category-btn');
         const menuItems = document.querySelectorAll('.menu-item');
-        const menuScroll = document.querySelector('.menu-scroll');
         
         categoryButtons.forEach(button => {
             button.addEventListener('click', () => {
+                // Удаляем активный класс со всех кнопок
                 categoryButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Добавляем активный класс к нажатой кнопке
                 button.classList.add('active');
                 
+                // Получаем категорию из data-атрибута
                 const category = button.getAttribute('data-category');
                 
-                // Быстрая фильтрация без задержек
+                // Фильтруем элементы меню
                 menuItems.forEach(item => {
                     const itemCategory = item.getAttribute('data-category');
                     
                     if (category === 'all' || category === itemCategory) {
-                        item.classList.remove('hide');
-                        item.classList.add('show');
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, 50);
                     } else {
-                        item.classList.remove('show');
-                        item.classList.add('hide');
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
                     }
                 });
-                
-                // Прокрутка к началу после фильтрации
-                if (menuScroll) {
-                    menuScroll.scrollTo({ left: 0, behavior: 'smooth' });
-                }
-                
-                // Обновление видимости кнопок прокрутки
-                setTimeout(checkScrollButtons, 300);
             });
         });
     }
     
-    // Прокрутка меню с точным позиционированием
+    // Инициализируем фильтрацию меню
+    initMenuFilter();
+    
+    // Прокрутка меню
     const menuScroll = document.querySelector('.menu-scroll');
     const scrollLeftBtn = document.querySelector('.scroll-btn.left');
     const scrollRightBtn = document.querySelector('.scroll-btn.right');
@@ -113,16 +122,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let startX;
         let scrollLeft;
         let scrollTimeout;
-        
-        // Вычисление ширины элемента меню для точной прокрутки
-        function getScrollAmount() {
-            if (!menuItems.children.length) return 330;
-            const firstItem = menuItems.children[0];
-            const itemStyle = getComputedStyle(firstItem);
-            const itemWidth = firstItem.offsetWidth;
-            const gap = parseInt(getComputedStyle(menuItems).gap) || 30;
-            return itemWidth + gap;
-        }
         
         // Проверка видимости кнопок прокрутки
         function checkScrollButtons() {
@@ -139,15 +138,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Обработчики для кнопок прокрутки с точным позиционированием
+        // Обработчики для кнопок прокрутки
         scrollLeftBtn.addEventListener('click', () => {
-            const scrollAmount = getScrollAmount();
-            menuScroll.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            menuScroll.scrollBy({ left: -320, behavior: 'smooth' });
         });
         
         scrollRightBtn.addEventListener('click', () => {
-            const scrollAmount = getScrollAmount();
-            menuScroll.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            menuScroll.scrollBy({ left: 320, behavior: 'smooth' });
         });
         
         // Drag to scroll
@@ -167,11 +164,12 @@ document.addEventListener('DOMContentLoaded', function() {
             isDown = false;
             menuScroll.classList.remove('dragging');
             
+            // Включение snap эффекта после перетаскивания
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
                 menuScroll.classList.remove('dragging');
-                const scrollAmount = getScrollAmount();
-                const snapPosition = Math.round(menuScroll.scrollLeft / scrollAmount) * scrollAmount;
+                const itemWidth = document.querySelector('.menu-item').offsetWidth + 30;
+                const snapPosition = Math.round(menuScroll.scrollLeft / itemWidth) * itemWidth;
                 menuScroll.scrollTo({ left: snapPosition, behavior: 'smooth' });
             }, 100);
         });
@@ -195,11 +193,12 @@ document.addEventListener('DOMContentLoaded', function() {
         menuScroll.addEventListener('touchend', () => {
             isDown = false;
             
+            // Включение snap эффекта после перетаскивания
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
                 menuScroll.classList.remove('dragging');
-                const scrollAmount = getScrollAmount();
-                const snapPosition = Math.round(menuScroll.scrollLeft / scrollAmount) * scrollAmount;
+                const itemWidth = document.querySelector('.menu-item').offsetWidth + 30;
+                const snapPosition = Math.round(menuScroll.scrollLeft / itemWidth) * itemWidth;
                 menuScroll.scrollTo({ left: snapPosition, behavior: 'smooth' });
             }, 100);
         });
@@ -216,8 +215,8 @@ document.addEventListener('DOMContentLoaded', function() {
             clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => {
                 if (!menuScroll.classList.contains('dragging')) {
-                    const scrollAmount = getScrollAmount();
-                    const snapPosition = Math.round(menuScroll.scrollLeft / scrollAmount) * scrollAmount;
+                    const itemWidth = document.querySelector('.menu-item').offsetWidth + 30;
+                    const snapPosition = Math.round(menuScroll.scrollLeft / itemWidth) * itemWidth;
                     menuScroll.scrollTo({ left: snapPosition, behavior: 'smooth' });
                 }
             }, 100);
@@ -225,10 +224,10 @@ document.addEventListener('DOMContentLoaded', function() {
             checkScrollButtons();
         });
         
-        // Проверяем кнопки при загрузке и изменении размера
+        // Проверяем кнопки при загрузке
         checkScrollButtons();
-        window.addEventListener('resize', checkScrollButtons);
         
+        // Адаптация для мобильных устройств
         if ('ontouchstart' in window) {
             menuScroll.style.cursor = 'grab';
         }
@@ -255,12 +254,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Запускаем анимацию при скролле
+    animateOnScroll();
+    
     // Обработка формы бронирования
     const reservationForm = document.getElementById('reservation-form');
     if (reservationForm) {
         reservationForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // Здесь можно добавить отправку данных на сервер
             alert('Спасибо! Ваша заявка принята. Мы свяжемся с вами в ближайшее время для подтверждения бронирования.');
             this.reset();
         });
@@ -276,10 +279,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Инициализация функций
-    initMenuFilter();
-    animateOnScroll();
-    
     // Предзагрузка критических ресурсов
     function preloadCriticalResources() {
         const images = document.querySelectorAll('img[loading="lazy"]');
@@ -291,6 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Запускаем предзагрузку после загрузки страницы
     window.addEventListener('load', function() {
         setTimeout(preloadCriticalResources, 1000);
     });
