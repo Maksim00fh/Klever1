@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Клевер - Заведение в Мегете</title>
+    <meta name="description" content="Уютное заведение в посёлке Мегет с традиционной кухней и неповторимой атмосферой">
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400;700&family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preload" href="images/hero-bg.jpg" as="image">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#home" class="nav-logo">
+                    <img class="logo-image" src="images/logo.png" alt="Клевер">
+                </a>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#home" class="nav-link">Главная</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link">О нас</a></li>
+                    <li class="nav-item"><a href="#menu" class="nav-link">Меню</a></li>
+                    <li class="nav-item"><a href="#gallery" class="nav-link">Галерея</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Контакты</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Добро пожаловать в Клевер</h1>
+            <p class="hero-subtitle">Уникальный вкус и атмосфера в самом сердце Мегета</p>
+            <div class="hero-buttons">
+                <a href="#menu" class="btn btn-primary">Посмотреть меню</a>
+                <a href="#contact" class="btn btn-primary">Забронировать</a>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>О нашем заведении</h2>
+                    <p>Мы расположены в живописном месте Ангарского района, в посёлке Мегет. Наше заведение сочетает в себе традиционную кухню, современный комфорт и уютную атмосферу.</p>
+                    <p>Мы используем только свежие продукты от местных производителей, чтобы обеспечить нашим гостям непревзойденный вкус и качество.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-utensils"></i>
+                            <h3>Свежие продукты</h3>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-cheese"></i>
+                            <h3>Домашняя кухня</h3>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-wine-glass-alt"></i>
+                            <h3>Широкий выбор напитков</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="images/about.jpg" alt="Интерьер заведения" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu">
+        <div class="container">
+            <h2>Наше меню</h2>
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="all">Все</button>
+                <button class="category-btn" data-category="hot">Горячие блюда</button>
+                <button class="category-btn" data-category="cold">Холодные закуски</button>
+                <button class="category-btn" data-category="drinks">Напитки</button>
+                <button class="category-btn" data-category="desserts">Десерты</button>
+            </div>
+            <div class="menu-container">
+                <button class="scroll-btn left hidden" aria-label="Прокрутить влево">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="menu-scroll">
+                    <div class="menu-items">
+                        <div class="menu-item" data-category="hot">
+                            <div class="menu-item-inner">
+                                <div class="menu-img-container">
+                                    <img src="images/menu-item1.jpg" alt="Стейк из говядины" loading="lazy">
+                                    <div class="menu-img-overlay">
+                                        <i class="fas fa-utensils"></i>
+                                    </div>
+                                </div>
+                                <div class="item-info">
+                                    <h3>Стейк из говядины</h3>
+                                    <div class="menu-divider">
+                                        <span class="divider-icon">🍽</span>
+                                    </div>
+                                    <p>Нежное мясо с овощами на гриле</p>
+                                    <div class="price-container">
+                                        <span class="price">650 руб.</span>
+                                    </div>
+                                    <div class="clover-decoration">
+                                        <i class="fas fa-leaf"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-item" data-category="hot">
+                            <div class="menu-item-inner">
+                                <div class="menu-img-container">
+                                    <img src="images/menu-item2.jpg" alt="Уха по-сибирски" loading="lazy">
+                                    <div class="menu-img-overlay">
+                                        <i class="fas fa-utensils"></i>
+                                    </div>
+                                </div>
+                                <div class="item-info">
+                                    <h3>Уха по-сибирски</h3>
+                                    <div class="menu-divider">
+                                        <span class="divider-icon">🍽</span>
+                                    </div>
+                                    <p>Наваристая уха из свежей рыбы</p>
+                                    <div class="price-container">
+                                        <span class="price">350 руб.</span>
+                                    </div>
+                                    <div class="clover-decoration">
+                                        <i class="fas fa-leaf"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-item" data-category="cold">
+                            <div class="menu-item-inner">
+                                <div class="menu-img-container">
+                                    <img src="images/menu-item3.jpg" alt="Сельдь под шубой" loading="lazy">
+                                    <div class="menu-img-overlay">
+                                        <i class="fas fa-utensils"></i>
+                                    </div>
+                                </div>
+                                <div class="item-info">
+                                    <h3>Сельдь под шубой</h3>
+                                    <div class="menu-divider">
+                                        <span class="divider-icon">🍽</span>
+                                    </div>
+                                    <p>Классическое русское блюдо</p>
+                                    <div class="price-container">
+                                        <span class="price">280 руб.</span>
+                                    </div>
+                                    <div class="clover-decoration">
+                                        <i class="fas fa-leaf"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-item" data-category="cold">
+                            <div class="menu-item-inner">
+                                <div class="menu-img-container">
+                                    <img src="images/menu-item4.jpg" alt="Сало по-деревенски" loading="lazy">
+                                    <div class="menu-img-overlay">
+                                        <i class="fas fa-utensils"></i>
+                                    </div>
+                                </div>
+                                <div class="item-info">
+                                    <h3>Сало по-деревенски</h3>
+                                    <div class="menu-divider">
+                                        <span class="divider-icon">🍽</span>
+                                    </div>
+                                    <p>С домашним хлебом и горчицей</p>
+                                    <div class="price-container">
+                                        <span class="price">220 руб.</span>
+                                    </div>
+                                    <div class="clover-decoration">
+                                        <i class="fas fa-leaf"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-item" data-category="drinks">
+                            <div class="menu-item-inner">
+                                <div class="menu-img-container">
+                                    <img src="images/menu-item5.jpg" alt="Морс клюквенный" loading="lazy">
+                                    <div class="menu-img-overlay">
+                                        <i class="fas fa-utensils"></i>
+                                    </div>
+                                </div>
+                                <div class="item-info">
+                                    <h3>Морс клюквенный</h3>
+                                    <div class="menu-divider">
+                                        <span class="divider-icon">🍽</span>
+                                    </div>
+                                    <p>Освежающий домашний морс</p>
+                                    <div class="price-container">
+                                        <span class="price">150 руб.</span>
+                                    </div>
+                                    <div class="clover-decoration">
+                                        <i class="fas fa-leaf"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-item" data-category="drinks">
+                            <div class="menu-item-inner">
+                                <div class="menu-img-container">
+                                    <img src="images/menu-item6.jpg" alt="Сбитень традиционный" loading="lazy">
+                                    <div class="menu-img-overlay">
+                                        <i class="fas fa-utensils"></i>
+                                    </div>
+                                </div>
+                                <div class="item-info">
+                                    <h3>Сбитень традиционный</h3>
+                                    <div class="menu-divider">
+                                        <span class="divider-icon">🍽</span>
+                                    </div>
+                                    <p>Славянский горячий напиток</p>
+                                    <div class="price-container">
+                                        <span class="price">180 руб.</span>
+                                    </div>
+                                    <div class="clover-decoration">
+                                        <i class="fas fa-leaf"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-item" data-category="desserts">
+                            <div class="menu-item-inner">
+                                <div class="menu-img-container">
+                                    <img src="images/menu-item7.jpg" alt="Медовик" loading="lazy">
+                                    <div class="menu-img-overlay">
+                                        <i class="fas fa-utensils"></i>
+                                    </div>
+                                </div>
+                                <div class="item-info">
+                                    <h3>Медовик</h3>
+                                    <div class="menu-divider">
+                                        <span class="divider-icon">🍽</span>
+                                    </div>
+                                    <p>Классический русский торт</p>
+                                    <div class="price-container">
+                                        <span class="price">250 руб.</span>
+                                    </div>
+                                    <div class="clover-decoration">
+                                        <i class="fas fa-leaf"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-item" data-category="desserts">
+                            <div class="menu-item-inner">
+                                <div class="menu-img-container">
+                                    <img src="images/menu-item8.jpg" alt="Блины с вареньем" loading="lazy">
+                                    <div class="menu-img-overlay">
+                                        <i class="fas fa-utensils"></i>
+                                    </div>
+                                </div>
+                                <div class="item-info">
+                                    <h3>Блины с вареньем</h3>
+                                    <div class="menu-divider">
+                                        <span class="divider-icon">🍽</span>
+                                    </div>
+                                    <p>С домашним вареньем и сметаной</p>
+                                    <div class="price-container">
+                                        <span class="price">200 руб.</span>
+                                    </div>
+                                    <div class="clover-decoration">
+                                        <i class="fas fa-leaf"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="scroll-btn right" aria-label="Прокрутить вправо">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2>Галерея</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="images/gallery1.jpg" alt="Интерьер 1" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/gallery2.jpg" alt="Блюдо 1" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/gallery3.jpg" alt="Интерьер 2" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/gallery4.jpg" alt="Блюдо 2" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/gallery5.jpg" alt="Мероприятие" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/gallery6.jpg" alt="Блюдо 3" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+    <div class="container">
+        <h2>Контакты</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <h3>Как нас найти</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Иркутская область, Ангарский район, посёлок Мегет, деревня Шароны, 1 Клевер</p>
+                <p><i class="fas fa-phone"></i> +7 (395) 123-45-67</p>
+                <p><i class="fas fa-envelope"></i> klever@establishment.ru</p>
+                <p><i class="fas fa-clock"></i> Пн-Чт: 10:00 - 22:00, Пт-Вс: 10:00 - 00:00</p>
+                
+                <div class="map">
+                    <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A7c2537f1b5b4d6c2b3b5d8f5c9c3a6e7d4c8a8b5f3b7a3a5d8f5c9c3a6e7d4c8a8b5&amp;source=constructor" width="100%" height="300" frameborder="0" loading="lazy"></iframe>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Забронировать столик</h3>
+                <form id="reservation-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Ваш телефон" required pattern="[\+]\d{1}\s[\(]\d{3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}" title="Формат: +7 (999) 999-99-99">
+                    </div>
+                    <div class="form-group">
+                        <input type="date" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="time" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" placeholder="Количество гостей" min="1" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Забронировать</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Клевер</h3>
+                    <p>Лучшее заведение в Ангарском районе с уютной атмосферой и прекрасной кухней.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Часы работы</h3>
+                    <p>Понедельник - Четверг: 10:00 - 22:00</p>
+                    <p>Пятница - Воскресенье: 10:00 - 00:00</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Свяжитесь с нами</h3>
+                    <p>+7 (395) 123-45-67</p>
+                    <p>klever@establishment.ru</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Заведение "Клевер". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
