@@ -8,12 +8,21 @@ document.addEventListener('DOMContentLoaded', function() {
         hamburger.addEventListener('click', function() {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
+            
+            // Изменение фона хедера при открытии меню на мобильном
+            const header = document.querySelector('.header');
+            if (navMenu.classList.contains('active')) {
+                header.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+            } else {
+                header.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+            }
         });
         
         // Закрытие меню при клике на ссылку
         document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
+            document.querySelector('.header').style.backgroundColor = 'rgba(0, 0, 0, 0)';
         }));
     }
     
@@ -29,13 +38,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 const headerHeight = document.querySelector('.header').offsetHeight;
                 const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
                 
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
+                // Определяем скорость прокрутки
+                const scrollSpeed = this.classList.contains('scroll-slow') ? 2000 : 1000;
+                
+                smoothScrollTo(targetPosition, scrollSpeed);
             }
         });
     });
+    
+    // Функция плавной прокрутки с регулируемой скоростью
+    function smoothScrollTo(targetPosition, duration) {
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        let startTime = null;
+        
+        function animation(currentTime) {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
+            window.scrollTo(0, run);
+            if (timeElapsed < duration) requestAnimationFrame(animation);
+        }
+        
+        function easeInOutQuad(t, b, c, d) {
+            t /= d/2;
+            if (t < 1) return c/2*t*t + b;
+            t--;
+            return -c/2 * (t*(t-2) - 1) + b;
+        }
+        
+        requestAnimationFrame(animation);
+    }
     
     // Фильтрация меню
     function initMenuFilter() {
@@ -88,6 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let isDown = false;
         let startX;
         let scrollLeft;
+        let scrollTimeout;
         
         // Проверка видимости кнопок прокрутки
         function checkScrollButtons() {
@@ -106,11 +140,11 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Обработчики для кнопок прокрутки
         scrollLeftBtn.addEventListener('click', () => {
-            menuScroll.scrollBy({ left: -300, behavior: 'smooth' });
+            menuScroll.scrollBy({ left: -320, behavior: 'smooth' });
         });
         
         scrollRightBtn.addEventListener('click', () => {
-            menuScroll.scrollBy({ left: 300, behavior: 'smooth' });
+            menuScroll.scrollBy({ left: 320, behavior: 'smooth' });
         });
         
         // Drag to scroll
@@ -129,6 +163,15 @@ document.addEventListener('DOMContentLoaded', function() {
         menuScroll.addEventListener('mouseup', () => {
             isDown = false;
             menuScroll.classList.remove('dragging');
+            
+            // Включение snap эффекта после перетаскивания
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                menuScroll.classList.remove('dragging');
+                const itemWidth = document.querySelector('.menu-item').offsetWidth + 30;
+                const snapPosition = Math.round(menuScroll.scrollLeft / itemWidth) * itemWidth;
+                menuScroll.scrollTo({ left: snapPosition, behavior: 'smooth' });
+            }, 100);
         });
         
         menuScroll.addEventListener('mousemove', (e) => {
@@ -149,7 +192,15 @@ document.addEventListener('DOMContentLoaded', function() {
         
         menuScroll.addEventListener('touchend', () => {
             isDown = false;
-            menuScroll.classList.remove('dragging');
+            
+            // Включение snap эффекта после перетаскивания
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                menuScroll.classList.remove('dragging');
+                const itemWidth = document.querySelector('.menu-item').offsetWidth + 30;
+                const snapPosition = Math.round(menuScroll.scrollLeft / itemWidth) * itemWidth;
+                menuScroll.scrollTo({ left: snapPosition, behavior: 'smooth' });
+            }, 100);
         });
         
         menuScroll.addEventListener('touchmove', (e) => {
@@ -159,9 +210,22 @@ document.addEventListener('DOMContentLoaded', function() {
             menuScroll.scrollLeft = scrollLeft - walk;
         }, { passive: true });
         
-        // Проверяем кнопки при загрузке и прокрутке
+        // Snap to items on scroll end
+        menuScroll.addEventListener('scroll', function() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                if (!menuScroll.classList.contains('dragging')) {
+                    const itemWidth = document.querySelector('.menu-item').offsetWidth + 30;
+                    const snapPosition = Math.round(menuScroll.scrollLeft / itemWidth) * itemWidth;
+                    menuScroll.scrollTo({ left: snapPosition, behavior: 'smooth' });
+                }
+            }, 100);
+            
+            checkScrollButtons();
+        });
+        
+        // Проверяем кнопки при загрузке
         checkScrollButtons();
-        menuScroll.addEventListener('scroll', checkScrollButtons);
         
         // Адаптация для мобильных устройств
         if ('ontouchstart' in window) {
@@ -211,7 +275,23 @@ document.addEventListener('DOMContentLoaded', function() {
         if (window.scrollY > 100) {
             header.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
         } else {
-            header.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+            header.style.backgroundColor = 'rgba(0, 0, 0, 0)';
         }
+    });
+    
+    // Предзагрузка критических ресурсов
+    function preloadCriticalResources() {
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        images.forEach(img => {
+            if (img.getAttribute('src')) {
+                const image = new Image();
+                image.src = img.getAttribute('src');
+            }
+        });
+    }
+    
+    // Запускаем предзагрузку после загрузки страницы
+    window.addEventListener('load', function() {
+        setTimeout(preloadCriticalResources, 1000);
     });
 });
