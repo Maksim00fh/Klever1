@@ -1,8 +1,8 @@
 :root {
-    --primary-color: #2E8B57;
+    --primary-color: #2E8B57; /* Цвет клевера */
     --secondary-color: #3CB371;
     --accent-color: #98FB98;
-    --text-color: #000000;
+    --text-color: #000000; /* Черный цвет текста */
     --light-color: #F5FFFA;
     --dark-color: #2E8B57;
     --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -32,7 +32,7 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
     margin-bottom: 1rem;
-    color: var(--text-color);
+    color: var(--text-color); /* Изменено на черный цвет */
 }
 
 a {
@@ -74,6 +74,7 @@ img {
     box-shadow: var(--shadow);
 }
 
+/* Обновленные стили для кнопок */
 .btn-primary {
     background: transparent;
     color: var(--text-color);
@@ -102,6 +103,21 @@ img {
     left: 100%;
 }
 
+.btn-secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+    border-color: transparent;
+}
+
+/* Специальные стили для кнопок в hero-секции */
 .hero .btn-primary {
     color: white;
     border-color: white;
@@ -113,13 +129,14 @@ img {
     border-color: transparent;
 }
 
+/* Header Styles */
 .header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0); /* Полностью прозрачный фон */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     transition: var(--transition);
     backdrop-filter: blur(10px);
@@ -140,6 +157,7 @@ img {
     align-items: center;
 }
 
+/* Стили для логотипа (изображение) */
 .logo-image {
     height: 50px;
     width: auto;
@@ -204,6 +222,7 @@ img {
     transition: var(--transition);
 }
 
+/* Hero Section */
 .hero {
     height: 100vh;
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../images/hero-bg.jpg') no-repeat center center/cover;
@@ -228,14 +247,14 @@ img {
     font-size: 3.5rem;
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    color: white;
+    color: white; /* Белый цвет для контраста на фоне */
 }
 
 .hero-subtitle {
     font-size: 1.2rem;
     margin-bottom: 30px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    color: white;
+    color: white; /* Белый цвет для контраста на фоне */
 }
 
 .hero-buttons {
@@ -270,6 +289,7 @@ img {
     animation: scrollIndicator 2s infinite;
 }
 
+/* About Section */
 .about {
     padding: 100px 0;
     background: transparent;
@@ -284,7 +304,7 @@ img {
 
 .about-text h2 {
     font-size: 2.5rem;
-    color: var(--text-color);
+    color: var(--text-color); /* Черный цвет */
     margin-bottom: 20px;
 }
 
@@ -292,7 +312,7 @@ img {
     margin-bottom: 20px;
     font-size: 1.1rem;
     font-weight: 500;
-    color: var(--text-color);
+    color: var(--text-color); /* Черный цвет */
 }
 
 .features {
@@ -325,7 +345,7 @@ img {
 
 .feature h3 {
     font-size: 1.2rem;
-    color: var(--text-color);
+    color: var(--text-color); /* Черный цвет */
 }
 
 .about-image {
@@ -351,6 +371,7 @@ img {
     transform: scale(1.05);
 }
 
+/* Menu Section */
 .menu {
     padding: 100px 0;
     background: transparent;
@@ -359,7 +380,7 @@ img {
 .menu h2 {
     text-align: center;
     font-size: 2.5rem;
-    color: var(--text-color);
+    color: var(--text-color); /* Черный цвет */
     margin-bottom: 50px;
 }
 
@@ -375,7 +396,7 @@ img {
     padding: 12px 25px;
     background-color: transparent;
     border: 2px solid var(--primary-color);
-    color: #000000;
+    color: #000000; /* Черный текст */
     border-radius: 30px;
     cursor: pointer;
     transition: var(--transition);
@@ -385,7 +406,7 @@ img {
 
 .category-btn.active, .category-btn:hover {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: white;
+    color: white; /* Белый текст при активации и наведении */
     transform: translateY(-3px);
     border-color: transparent;
     box-shadow: 0 0 15px rgba(46, 139, 87, 0.7);
@@ -582,6 +603,7 @@ img {
     transform: rotate(-15deg);
 }
 
+/* Анимации и ховер-эффекты */
 .menu-item:hover .menu-item-inner {
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 15px 35px rgba(46, 139, 87, 0.25), 0 0 0 1px rgba(46, 139, 87, 0.1);
@@ -637,6 +659,7 @@ img {
     display: none;
 }
 
+/* Gallery Section */
 .gallery {
     padding: 100px 0;
     background: transparent;
@@ -645,7 +668,7 @@ img {
 .gallery h2 {
     text-align: center;
     font-size: 2.5rem;
-    color: var(--text-color);
+    color: var(--text-color); /* Черный цвет */
     margin-bottom: 50px;
 }
 
@@ -680,6 +703,7 @@ img {
     transform: scale(1.05);
 }
 
+/* Contact Section */
 .contact {
     padding: 100px 0;
     background: transparent;
@@ -688,7 +712,7 @@ img {
 .contact h2 {
     text-align: center;
     font-size: 2.5rem;
-    color: var(--text-color);
+    color: var(--text-color); /* Черный цвет */
     margin-bottom: 50px;
 }
 
@@ -701,14 +725,14 @@ img {
 .contact-info h3 {
     font-size: 1.5rem;
     margin-bottom: 20px;
-    color: var(--text-color);
+    color: var(--text-color); /* Черный цвет */
 }
 
 .contact-info p {
     margin-bottom: 15px;
     display: flex;
     align-items: center;
-    color: #000000;
+    color: #000000; /* Черный цвет */
     font-weight: 500;
 }
 
@@ -728,7 +752,7 @@ img {
 .contact-form h3 {
     font-size: 1.5rem;
     margin-bottom: 20px;
-    color: #000000;
+    color: #000000; /* Черный цвет */
 }
 
 .form-group {
@@ -762,9 +786,10 @@ img {
     border-color: #00C851;
 }
 
+/* Footer */
 .footer {
-    background: transparent;
-    color: #000000;
+    background: transparent; /* Прозрачный фон вместо зеленого */
+    color: #000000; /* Черный цвет текста */
     padding: 60px 0 20px;
 }
 
@@ -778,12 +803,12 @@ img {
 .footer-section h3 {
     font-size: 1.5rem;
     margin-bottom: 20px;
-    color: #000000;
+    color: #000000; /* Черный цвет */
 }
 
 .footer-section p {
     margin-bottom: 10px;
-    color: #000000;
+    color: #000000; /* Черный цвет */
 }
 
 .social-icons {
@@ -810,7 +835,7 @@ img {
 
 .social-icons i {
     font-size: 1.2rem;
-    color: #000000;
+    color: #000000; /* Черный цвет */
 }
 
 .social-icons a:hover i {
@@ -820,10 +845,11 @@ img {
 .footer-bottom {
     text-align: center;
     padding-top: 20px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    color: #000000;
+    border-top: 1px solid rgba(0, 0, 0, 0.1); /* Более светлая линия */
+    color: #000000; /* Черный цвет */
 }
 
+/* Animations */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -871,6 +897,19 @@ img {
     }
 }
 
+/* Loading animation for menu items */
+@keyframes itemsAnimation {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Styles */
 @media (max-width: 992px) {
     .hero-title {
         font-size: 2.8rem;
@@ -890,10 +929,6 @@ img {
         position: static;
         transform: none;
         margin: 0 auto;
-    }
-    
-    .features {
-        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -997,12 +1032,9 @@ img {
         font-size: 1.3rem;
     }
     
+    /* Мобильный хедер - полностью прозрачный */
     .header {
         background-color: rgba(0, 0, 0, 0) !important;
-    }
-    
-    .gallery-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     }
 }
 
@@ -1033,31 +1065,5 @@ img {
     
     .logo-image {
         height: 35px;
-    }
-    
-    .menu-container {
-        padding: 0 10px;
-    }
-    
-    .scroll-btn {
-        width: 30px;
-        height: 30px;
-        font-size: 14px;
-    }
-    
-    .menu-scroll {
-        gap: 15px;
-    }
-    
-    .menu-item {
-        min-width: calc(100vw - 60px);
-    }
-    
-    .contact-info p {
-        font-size: 0.9rem;
-    }
-    
-    .form-group input {
-        padding: 12px;
     }
 }
