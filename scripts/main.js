@@ -9,12 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
             
-            // Изменение фона хедера при открытии меню на мобильном
-            const header = document.querySelector('.header');
+            // Блокировка прокрутки тела при открытом меню
             if (navMenu.classList.contains('active')) {
-                header.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+                document.body.style.overflow = 'hidden';
             } else {
-                header.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+                document.body.style.overflow = '';
             }
         });
         
@@ -22,8 +21,17 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
-            document.querySelector('.header').style.backgroundColor = 'rgba(0, 0, 0, 0)';
+            document.body.style.overflow = '';
         }));
+        
+        // Закрытие меню при клике вне его области
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-container') && navMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
     }
     
     // Плавная прокрутка для навигационных ссылок
@@ -42,6 +50,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const scrollSpeed = this.classList.contains('scroll-slow') ? 2000 : 1000;
                 
                 smoothScrollTo(targetPosition, scrollSpeed);
+                
+                // Закрываем меню на мобильных устройствах
+                if (window.innerWidth <= 768) {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
             }
         });
     });
@@ -115,7 +130,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const menuScroll = document.querySelector('.menu-scroll');
     const scrollLeftBtn = document.querySelector('.scroll-btn.left');
     const scrollRightBtn = document.querySelector('.scroll-btn.right');
-    const menuItems = document.querySelector('.menu-items');
     
     if (menuScroll && scrollLeftBtn && scrollRightBtn) {
         let isDown = false;
@@ -231,6 +245,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if ('ontouchstart' in window) {
             menuScroll.style.cursor = 'grab';
         }
+        
+        // Обработка изменения размера окна
+        window.addEventListener('resize', checkScrollButtons);
     }
     
     // Анимация появления элементов при скролле
@@ -242,6 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.1 });
@@ -260,8 +278,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // Обработка формы бронирования
     const reservationForm = document.getElementById('reservation-form');
     if (reservationForm) {
+        // Установка минимальной даты (сегодня)
+        const today = new Date().toISOString().split('T')[0];
+        reservationForm.querySelector('input[type="date"]').setAttribute('min', today);
+        
         reservationForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            // Валидация телефона
+            const phoneInput = this.querySelector('input[type="tel"]');
+            const phonePattern = /^[\+]\d{1}\s[\(]\d{3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}$/;
+            
+            if (!phonePattern.test(phoneInput.value)) {
+                alert('Пожалуйста, введите телефон в формате: +7 (999) 999-99-99');
+                phoneInput.focus();
+                return;
+            }
             
             // Здесь можно добавить отправку данных на сервер
             alert('Спасибо! Ваша заявка принята. Мы свяжемся с вами в ближайшее время для подтверждения бронирования.');
@@ -293,5 +325,46 @@ document.addEventListener('DOMContentLoaded', function() {
     // Запускаем предзагрузку после загрузки страницы
     window.addEventListener('load', function() {
         setTimeout(preloadCriticalResources, 1000);
+    });
+    
+    // Обработка изменения ориентации устройства
+    let portrait = window.matchMedia("(orientation: portrait)");
+    portrait.addEventListener("change", function(e) {
+        if (e.matches) {
+            // Портретный режим
+            console.log("Портретный режим");
+        } else {
+            // Альбомный режим
+            console.log("Альбомный режим");
+        }
+        
+        // Перепроверяем видимость кнопок прокрутки меню
+        if (menuScroll) {
+            setTimeout(checkScrollButtons, 300);
+        }
+    });
+    
+    // Улучшение для тач-устройств
+    if ('ontouchstart' in window) {
+        document.documentElement.classList.add('touch-device');
+        
+        // Увеличиваем область клика для элементов навигации на мобильных
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.style.padding = '10px 0';
+        });
+    } else {
+        document.documentElement.classList.add('no-touch-device');
+    }
+    
+    // Предотвращение масштабирования при двойном тапе (для улучшения UX на мобильных)
+    let lastTap = 0;
+    document.addEventListener('touchend', function(event) {
+        const currentTime = new Date().getTime();
+        const tapLength = currentTime - lastTap;
+        if (tapLength < 300 && tapLength > 0) {
+            event.preventDefault();
+        }
+        lastTap = currentTime;
     });
 });
